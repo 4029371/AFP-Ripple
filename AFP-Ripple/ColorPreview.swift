@@ -15,8 +15,6 @@ struct ColorPreview: View {
                 .foregroundColor(Color(#colorLiteral(red: 0.4666666667, green: 0.7333333333, blue: 0.6901960784, alpha: 1)))
                 .ignoresSafeArea()
             VStack {
-                
-                
                 ZStack {
                     RoundedRectangle(cornerRadius: 20)
                         .foregroundStyle(Color(#colorLiteral(red: 0.3657156825, green: 0.519503355, blue: 0.5258209705, alpha: 1)))

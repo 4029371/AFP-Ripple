@@ -11,7 +11,39 @@ import SwiftUI
 struct AFP_RippleApp: App {
     var body: some Scene {
         WindowGroup {
-            ColorPreview()
+            TabView {
+                Tab {
+                    // Add View Here
+                } label: {
+                    Image(systemName: "globe")
+                    Text("My Travel")
+                }
+                Tab {
+                    // Add View Here
+                } label: {
+                    Image(systemName: "person.3")
+                    Text("Student List")
+                }
+                Tab {
+                    // Add View Here
+                } label: {
+                    Image(systemName: "lock.fill")
+                    Text("Own Struct")
+                }
+                Tab {
+                    // Add View Here
+                } label: {
+                    Image(systemName: "lock.fill")
+                    Text("Own Struct")
+                }
+                Tab {
+                    // Add View Here
+                } label: {
+                    Image(systemName: "lock.fill")
+                    Text("Own Struct")
+                }
+            }
         }
+
     }
 }
