@@ -13,7 +13,7 @@ struct AFP_RippleApp: App {
         WindowGroup {
             TabView {
                 Tab {
-                    // Add View Here
+                    CreateView()
                 } label: {
                     Image(systemName: "globe")
                     Text("My Travel")
