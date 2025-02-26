@@ -101,7 +101,7 @@ struct HomeView: View {
 
                 
                 
-                Smile(size: size)
+                HomeSmile(size: size)
                     .position(x: position.x + size * 0.1, y: position.y + size * 0.3)
             }
             .padding()
