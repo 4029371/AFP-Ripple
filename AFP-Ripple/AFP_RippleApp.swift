@@ -9,7 +9,11 @@ import SwiftUI
 
 @main
 struct AFP_RippleApp: App {
-    @StateObject var savedCards: Deck = Deck(cards: [])
+    @StateObject var savedCards: Deck = Deck(cards: [
+        Card(template: "preview", affirmation: "placeholder", saved: true),
+        Card(template: "preview", affirmation: "placeholder", saved: true),
+        Card(template: "preview", affirmation: "placeholder", saved: true),
+    ])
 
     var body: some Scene {
         WindowGroup {
@@ -27,7 +31,7 @@ struct AFP_RippleApp: App {
                     Text("Student List")
                 }
                 Tab {
-                    test()
+                    ReflectionView()
                 } label: {
                     Image(systemName: "person.3")
                     Text("Student List")

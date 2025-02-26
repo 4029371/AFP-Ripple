@@ -20,7 +20,7 @@ struct CreateView: View {
     var body: some View {
         ZStack{
             Rectangle()
-                .foregroundStyle(.rippleTeal2)
+                .foregroundStyle(.rippleTeal1)
                 .ignoresSafeArea()
             
             TabView(selection: $selectedPage) {

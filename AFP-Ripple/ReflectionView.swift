@@ -8,56 +8,38 @@
 import SwiftUI
 
 struct ReflectionView: View {
+    @EnvironmentObject var savedCards: Deck
+
     var body: some View {
         NavigationStack {
             ZStack {
-                
-                Color("RippleTeal1")
+                Rectangle()
+                    .foregroundColor(.rippleTeal1)
                     .ignoresSafeArea()
                 
-                List {
-                    Section {
-                        NavigationLink { DetailView (description: " Your affirmation created on...") }
-                        label: {
-                            Text ("Saved Affirmations Detail 1") }
+                VStack {
+                    Text("Saved")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.rippleYellow1)
+                        .multilineTextAlignment(.center)
+                        .frame(width: 250)
+                    List {
+                        ForEach(savedCards.cards) { card in
+                                NavigationLink { DetailView() }
+                                label: {
+                                    Text (card.template + " " + card.affirmation) }
+                            }
+                            .listRowBackground(Color("RippleTeal2"))
+                            .foregroundColor(.white)
+                        }
                     }
-                    .listRowBackground(Color("RippleTeal2"))
-                    .foregroundColor(.white)
-                    
-                    
-                    Section {
-                        NavigationLink { DetailView (description: "Your affirmation created on...") }
-                        label: {
-                            Text ("Saved Affirmations Detail 2") }
-                    }.listRowBackground(Color("RippleTeal2"))
-                        .foregroundColor(.white)
-                    
-                    Section {
-                        NavigationLink { DetailView (description: "Your affirmation created on...") }
-                        label: {
-                            Text ("Saved Affirmations Detail 3") }
-                    }.listRowBackground(Color("RippleTeal2"))
-                        .foregroundColor(.white)
-                    
-                    Section {
-                        NavigationLink { DetailView (description: "Your affirmation created on...") }
-                        label: {
-                            Text ("Saved Affirmations Detail 4") }
-                    }
-                    .listRowBackground(Color("RippleTeal2"))
-                    .foregroundColor(.white)
                 }
-                .navigationTitle("Archive")
-                .padding(.vertical)
-                .foregroundColor(.white)
                 .scrollContentBackground(.hidden)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
             }
         }
     }
           
-        }
 
 
 

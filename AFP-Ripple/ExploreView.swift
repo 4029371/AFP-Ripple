@@ -18,12 +18,13 @@ struct ExploreView: View {
     ])
     
     @EnvironmentObject var savedCards: Deck
+//    @EnvironmentObject var exploreCards: Deck
     
     var body: some View {
         NavigationStack {
             ZStack{
                 Rectangle()
-                    .foregroundStyle(.rippleTeal2)
+                    .foregroundStyle(.rippleTeal1)
                     .ignoresSafeArea()
                 
                 VStack {
@@ -57,5 +58,7 @@ struct ExploreView: View {
 }
 
 #Preview {
+    @Previewable @State var savedCards = Deck()
     ExploreView()
+        .environmentObject(savedCards)
 }

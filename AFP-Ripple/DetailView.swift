@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct DetailView: View {
-    
-    let description: String
-    
     var body: some View {
         ZStack{
             Color("RippleTeal1")
                 .ignoresSafeArea()
             VStack {
                 //linked the cards
-                Text ("This is \(description) " )
+                Text ("This is your saved affirmation" )
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.white)
@@ -31,11 +28,9 @@ struct DetailView: View {
             }
             
         }
-        
-
     }
 }
 
 #Preview {
-    DetailView(description: "your created affirmation")
+    DetailView()
 }
