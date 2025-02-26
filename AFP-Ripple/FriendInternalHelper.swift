@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct FriendInternalHelper: View {
     let color: Color
     let size: CGFloat
     let name: String // Added name property

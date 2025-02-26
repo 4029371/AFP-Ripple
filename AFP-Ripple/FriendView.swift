@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct HomeScreen: View {
-    @State private var circles: [(view: ContentView, name: String, position: CGPoint, age: String, hobby: String, notes: String, color: Color, size: CGFloat)] = []
+struct FriendView: View {
+    @State private var circles: [(view: FriendInternalHelper, name: String, position: CGPoint, age: String, hobby: String, notes: String, color: Color, size: CGFloat)] = []
     @State private var newName: String = ""
     @State private var showDeleteAlert: Bool = false
     @State private var isMenuVisible: Bool = false
@@ -19,7 +19,7 @@ struct HomeScreen: View {
                     onDone: {
                         // Update the circle's color in HomeScreen
                         let updatedColor = circles[selectedIndex].color
-                        circles[selectedIndex].view = ContentView(color: updatedColor, size: circles[selectedIndex].size, name: circles[selectedIndex].name)
+                        circles[selectedIndex].view = FriendInternalHelper(color: updatedColor, size: circles[selectedIndex].size, name: circles[selectedIndex].name)
                         // Slide out the CircleDetailView to the right
                         withAnimation(.easeInOut(duration: 0.5)) {
                             self.selectedCircleIndex = nil
@@ -68,7 +68,7 @@ struct HomeScreen: View {
 
                             Button(action: {
                                 if !newName.isEmpty {
-                                    let newCircle = ContentView(
+                                    let newCircle = FriendInternalHelper(
                                         color: Color.randomColor(),
                                         size: CGFloat.random(in: 50...200),
                                         name: newName
