@@ -35,6 +35,12 @@ struct AFP_RippleApp: App {
                     Image(systemName: "heart.fill")
                     Text("Saved")
                 }
+                Tab {
+                    LoginView()
+                } label: {
+                    Image(systemName: "person.fill")
+                    Text("Account")
+                }
             }
             .environmentObject(savedCards)
             .tint(.rippleYellow1)

@@ -18,48 +18,59 @@ struct LoginView: View {
         
         ZStack {
             
-            Color.white
+            Color.rippleTeal1
                 .ignoresSafeArea()
             
+            VStack {
+                Text("Login")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.rippleYellow1)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 250)
+                Spacer()
+                Image(systemName: "lock.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 250)
+                    .foregroundStyle(LinearGradient(colors: [.rippleLilac1, .rippleYellow1], startPoint: .top, endPoint: .bottom))
                 
-            
-            Rectangle()
-                .fill(Color.rippleTeal1)
-                .opacity(0.5)
-                .frame(width: 300, height: 400)
-                .cornerRadius(20)
-                .overlay {
-                    VStack {
-                        
-                        TextField ("Username", text: $userName)
-                            .foregroundColor(.white)
-                            .background(Color(.rippleTeal1))
-                            .opacity(0.3)
+                Rectangle()
+                    .fill(Color.rippleTeal2)
+                    .frame(width: 300, height: 175)
+                    .cornerRadius(20)
+                    .overlay {
+                        VStack (spacing: 0) {
                             
-                            .padding(20)
-                        
-                        SecureField ("Password", text:$password)
-                            .textContentType(.password)
-                            .background(Color(.rippleTeal1))
-                            .padding(20)
-                            .opacity(0.3)
-                        
-                        
-                        Button(action: {
-                            loginMessage = "Login Successful"
-                        }) {
-                            Text("Sign In")
-                                .buttonBorderShape(.roundedRectangle(radius: 5))
-                                .padding()
+                            TextField ("Username", text: $userName)
                                 .foregroundColor(.white)
-                                .background(Color(.rippleYellow1))
-                                .padding()
-                                .frame(width: 200, height: 40)
+                                .background(Color(.rippleTeal1))
+                                .cornerRadius(5)
+                                .opacity(0.7)
+                                .padding(.horizontal, 20)
+                                .bold()
                             
+                            SecureField ("Password", text:$password)
+                                .textContentType(.password)
+                                .background(Color(.rippleTeal1))
+                                .cornerRadius(5)
+                                .padding(20)
+                                .opacity(0.7)
+                                .bold()
                             
+                            Button(action: {
+                                loginMessage = "Login Successful"
+                            }) {
+                                Text("Sign In")
+                                    .foregroundColor(.white)
+                                    .bold()
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.rippleYellow1)
                         }
                     }
-                }
+                Spacer()
+            }
         }
     }
     

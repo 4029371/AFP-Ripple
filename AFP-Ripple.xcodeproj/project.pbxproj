@@ -6,12 +6,7 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		49EC6BFE2D6D5B2A008A0AF6 /* WhatisRipple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EC6BFD2D6D5B2A008A0AF6 /* WhatisRipple.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		49EC6BFD2D6D5B2A008A0AF6 /* WhatisRipple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatisRipple.swift; sourceTree = "<group>"; };
 		E32101D22D6BE67F0035BC07 /* AFP-Ripple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AFP-Ripple.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -37,7 +32,6 @@
 		E32101C92D6BE67F0035BC07 = {
 			isa = PBXGroup;
 			children = (
-				49EC6BFD2D6D5B2A008A0AF6 /* WhatisRipple.swift */,
 				E32101D42D6BE67F0035BC07 /* AFP-Ripple */,
 				E32101D32D6BE67F0035BC07 /* Products */,
 			);
@@ -125,7 +119,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49EC6BFE2D6D5B2A008A0AF6 /* WhatisRipple.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
