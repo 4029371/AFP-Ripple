@@ -8,16 +8,19 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var userName = ""
-    @State private var password = ""
-    @State private var loginMessage = ""
- 
+    
+    let size: CGFloat = 100
+    
+    @State private var position: CGPoint = .init(x: 170, y: 300)
+  
+    
     var body: some View {
         
         
-    
-            
-            
+        
+        
+        
+        NavigationStack {
             ZStack {
                 Rectangle()
                     .frame (width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -34,13 +37,13 @@ struct HomeView: View {
                     .shadow(radius: 20)
                     .padding()
                     .rotation3DEffect(.degrees(360), axis: (x: 0, y: 1, z: 0))
-                
-                
+            
+                    
                 
                 
                 Circle()
                     .foregroundColor(.white)
-                    .frame(width: 15, height: 15)
+                    .frame(width: 15, height: 25)
                     .position(x: 160, y: 250)
                 
                 
@@ -48,53 +51,64 @@ struct HomeView: View {
                 Circle()
                     .foregroundColor(.white)
                     .frame(width: 15, height: 15)
-                    .position(x: 250, y: 300)
+                    .position(x: 200, y: 260)
+                
                 
                 
                 VStack {
-                    Text ("Log In")
-                    TextField ("Username", text: $userName)
-                    SecureField ("Password", text:$password)
-                        .textContentType(.password)
                     
-                   
                     
-                    Button(action: {
-                        loginMessage = "Login Successful"
-                    }) {
-                        Text("Sign In")
-                            .buttonBorderShape(.roundedRectangle(radius: 5))
-                            .padding()
-                            .foregroundColor(.white)
-                            .background(Color(.rippleLilac1))
-                            .padding()
-                            .frame(width: 200, height: 40)
+                    
+                    NavigationLink {
+                        LoginView()
+                    } label: {
+                            Text("Sign In")
+                                .buttonBorderShape(.roundedRectangle(radius: 5))
+                                .padding(20)
+                                .foregroundColor(.white)
+                                .background(.rippleLilac1)
+                                .cornerRadius(200)
                         
-                        
+                    
+                            
+                        }
                     }
                     
-                        
-                    }
+                
+                .padding(.top, 500)
                 
                 
-            }
-            
-        
-        
-        
-        }
-    
-    
-    
-        
-            
-            
-               
-            
-            
-        }
-    
+                // Button
+                // Look up `.sheet` SwiftUI
+                
+                
+                
+                Text("Welcome to Ripple")
 
+                    .padding()
+                    .background(Color.rippleTeal2)
+                    .foregroundColor(.white)
+                    .cornerRadius(100)
+                    .padding()
+                    
+                
+                
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .padding(.top, 10)
+                
+           
+
+                
+                
+                Smile(size: size)
+                    .position(x: position.x + size * 0.1, y: position.y + size * 0.3)
+            }
+            .padding()
+        }
+        
+    }
+}
 
 #Preview {
     HomeView()

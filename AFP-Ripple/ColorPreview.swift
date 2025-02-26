@@ -11,7 +11,6 @@ struct ColorPreview: View {
     var body: some View {
         ZStack{
             Rectangle()
-                .frame()
                 .foregroundColor(Color(#colorLiteral(red: 0.4666666667, green: 0.7333333333, blue: 0.6901960784, alpha: 1)))
                 .ignoresSafeArea()
             VStack {
