@@ -11,7 +11,7 @@ import SwiftUI
 struct AFP_RippleApp: App {
     var body: some Scene {
         WindowGroup {
-            ColorPreview()
+            HomeScreen()
         }
     }
 }
