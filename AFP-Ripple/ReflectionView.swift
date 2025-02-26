@@ -26,9 +26,16 @@ struct ReflectionView: View {
                         .frame(width: 250)
                     List {
                         ForEach(savedCards.cards) { card in
-                                NavigationLink { DetailView() }
-                                label: {
-                                    Text (card.template + " " + card.affirmation) }
+                            NavigationLink {
+//                                DetailView(templateText: card.template, affirmationText: card.affirmation, liked: card.saved)
+                            } label: {
+                                HStack {
+                                    Text (card.template + " " + card.affirmation)
+                                    Spacer()
+                                    Image(systemName: "heart.fill")
+                                        .foregroundStyle(.rippleYellow1)
+                                }
+                            }
                             }
                             .listRowBackground(Color("RippleTeal2"))
                             .foregroundColor(.white)
@@ -44,5 +51,12 @@ struct ReflectionView: View {
 
 
 #Preview {
+    @Previewable @State var savedCards: Deck = Deck(cards: [
+        Card(template: "I am", affirmation: "cool", saved: false),
+        Card(template: "I am", affirmation: "resilient", saved: false),
+        Card(template: "I am", affirmation: "boom", saved: false),
+        Card(template: "I am", affirmation: "boop", saved: false),
+    ])
     ReflectionView()
+        .environmentObject(savedCards)
 }

@@ -22,6 +22,11 @@ struct CreateCard: View {
             RoundedRectangle(cornerRadius: 25)
                 .frame(width:300, height: 500)
                 .foregroundStyle(LinearGradient(colors: [.rippleTeal1, .rippleYellow1], startPoint: .top, endPoint: .bottom))
+//                .overlay(
+//                        RoundedRectangle(cornerRadius: 25)
+//                            .stroke(.rippleYellow1, lineWidth: 2)
+//                    )
+            
             VStack{
                 Spacer()
                 Text(templateText)
@@ -58,7 +63,7 @@ struct CreateCard: View {
                 
                 Button {
                     //Add saving function here
-                    var savedCard = Card(template: templateText, affirmation: affirmationText, saved: true)
+                    let savedCard = Card(template: templateText, affirmation: affirmationText, saved: true)
                     savedCards.addCard(card: savedCard)
                     affirmationText = ""
                 } label: {

@@ -22,7 +22,7 @@ struct ExploreCard: View {
     @State var colorArrayCopy: [Color] = [
         Color(#colorLiteral(red: 0.879907012, green: 0.7766652703, blue: 0.1443305612, alpha: 1)),
         Color(#colorLiteral(red: 0.8502051234, green: 0.8743068576, blue: 1, alpha: 1)),
-        Color(#colorLiteral(red: 0.4647814631, green: 0.7324085832, blue: 0.69007653, alpha: 1)),
+        Color(.rippleTeal1),
     ]
     
     @EnvironmentObject var savedCards: Deck
@@ -30,83 +30,95 @@ struct ExploreCard: View {
     let colorArray: [Color] = [
         Color(#colorLiteral(red: 0.879907012, green: 0.7766652703, blue: 0.1443305612, alpha: 1)),
         Color(#colorLiteral(red: 0.8502051234, green: 0.8743068576, blue: 1, alpha: 1)),
-        Color(#colorLiteral(red: 0.4647814631, green: 0.7324085832, blue: 0.69007653, alpha: 1)),
+        Color(.rippleTeal1),
     ]
     
     var body: some View {
         NavigationStack {
             ZStack {
-                RoundedRectangle(cornerRadius: 25)
-                    .frame(width:300, height: 500)
-                    .foregroundStyle(LinearGradient(
-                        colors:
-                            [colorArrayCopy[0],
-                             colorArrayCopy[1],
-                             colorArrayCopy[2]],
-                        startPoint: .top, endPoint: .bottom))
-                VStack{
-                    Spacer()
-                    Text(templateText)
-                        .foregroundStyle(.white)
-                        .font(.title)
-                        .fontWeight(.semibold)
-                    ZStack {
-                        Text(affirmationText)
-                            .multilineTextAlignment(.center)
-                            .frame(width: 200, height: 60)
-                            .foregroundStyle(.white)
-                            .font(.largeTitle)
-                            .fontWeight(.black)
-                    }
-                    .padding(.top, -10)
-                    Spacer()
+                ZStack {
+                    Rectangle()
+                        .foregroundColor(.rippleTeal1)
+                        .ignoresSafeArea()
                     
-                    HStack{
+                    RoundedRectangle(cornerRadius: 25)
+                        .frame(width:300, height: 500)
+                        .foregroundStyle(LinearGradient(
+                            colors:
+                                [colorArrayCopy[0],
+                                 colorArrayCopy[1],
+                                 colorArrayCopy[2]],
+                            startPoint: .top, endPoint: .bottom))
+//                        .overlay(
+//                                RoundedRectangle(cornerRadius: 25)
+//                                    .stroke(.rippleYellow1, lineWidth: 2)
+//                            )
+                    
+
+                    VStack{
                         Spacer()
-                        Button {
-                            liked.toggle()
-                            
-                            if liked {
-                                savedCards.addCard(card: Card(template: templateText, affirmation: affirmationText, saved: true))
+                        Text(templateText)
+                            .foregroundStyle(.white)
+                            .font(.title)
+                            .fontWeight(.semibold)
+                        ZStack {
+                            Text(affirmationText)
+                                .multilineTextAlignment(.center)
+                                .frame(width: 200, height: 60)
+                                .foregroundStyle(.white)
+                                .font(.largeTitle)
+                                .fontWeight(.black)
+                        }
+                        .padding(.top, -10)
+                        Spacer()
+                        
+                        HStack{
+                            Spacer()
+                            Button {
+                                liked.toggle()
+                                
+                                if liked {
+                                    savedCards.addCard(card: Card(template: templateText, affirmation: affirmationText, saved: true))
+                                }
+                            } label: {
+                                Image(systemName: liked ? "heart.fill" : "heart")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundStyle(.white)
                             }
-                        } label: {
-                            Image(systemName: liked ? "heart.fill" : "heart")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20, height: 20)
-                                .foregroundStyle(.white)
+                            Spacer()
+                            NavigationLink(destination: CreateView()) {
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundStyle(.white)
+                            }
+                            Spacer()
+                            Button {
+                                showingShareSheet.toggle()
+                            } label: {
+                                Image(systemName: "paperplane.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundStyle(.white)
+                            }
+                            Spacer()
+                                .sheet(isPresented: $showingShareSheet) {
+                                    // Step 3: Present the Share Sheet
+                                    ShareSheet(activityItems: ["Share your affirmation!"])
+                                }
                         }
-                        Spacer()
-                        NavigationLink(destination: CreateView()) {
-                            Image(systemName: "plus")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20, height: 20)
-                                .foregroundStyle(.white)
-                        }
-                        Spacer()
-                        Button {
-                            showingShareSheet.toggle()
-                        } label: {
-                            Image(systemName: "paperplane.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20, height: 20)
-                                .foregroundStyle(.white)
-                        }
-                        Spacer()
-                        .sheet(isPresented: $showingShareSheet) {
-                                        // Step 3: Present the Share Sheet
-                                        ShareSheet(activityItems: ["Share your affirmation!"])
-                                    }
                     }
+                    .padding()
+                    .padding(.bottom, 7)
+                    .frame(width:350, height: 500)
                 }
-                .padding()
-                .padding(.bottom, 7)
-                .frame(width:350, height: 500)
-            }
-            .onAppear(){
-                colorArrayCopy = colorArray.shuffled()
+                .onAppear(){
+                    colorArrayCopy = colorArray.shuffled()
+                }
             }
         }
     }

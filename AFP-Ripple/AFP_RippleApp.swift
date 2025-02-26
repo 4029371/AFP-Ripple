@@ -10,9 +10,7 @@ import SwiftUI
 @main
 struct AFP_RippleApp: App {
     @StateObject var savedCards: Deck = Deck(cards: [
-        Card(template: "preview", affirmation: "placeholder", saved: true),
-        Card(template: "preview", affirmation: "placeholder", saved: true),
-        Card(template: "preview", affirmation: "placeholder", saved: true),
+        Card(template: "I am", affirmation: "a placeholder", saved: true),
     ])
 
     var body: some Scene {
@@ -21,23 +19,25 @@ struct AFP_RippleApp: App {
                 Tab {
                     CreateView()
                 } label: {
-                    Image(systemName: "globe")
-                    Text("My Travel")
+                    Image(systemName: "plus")
+                        .bold()
+                    Text("Create")
                 }
                 Tab {
                     ExploreView()
                 } label: {
-                    Image(systemName: "person.3")
-                    Text("Student List")
+                    Image(systemName: "heart.text.square.fill")
+                    Text("Explore")
                 }
                 Tab {
                     ReflectionView()
                 } label: {
-                    Image(systemName: "person.3")
-                    Text("Student List")
+                    Image(systemName: "heart.fill")
+                    Text("Saved")
                 }
             }
             .environmentObject(savedCards)
+            .tint(.rippleYellow1)
         }
 
     }

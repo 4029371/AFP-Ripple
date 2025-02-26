@@ -8,23 +8,27 @@
 import SwiftUI
 
 struct DetailView: View {
+    
+    @Binding var templateText: String
+    @Binding var affirmationText: String
+    @Binding var liked: Bool
+    
     var body: some View {
-        ZStack{
-            Color("RippleTeal1")
+        ZStack {
+            Rectangle()
+                .foregroundColor(.rippleTeal1)
                 .ignoresSafeArea()
+            
             VStack {
                 //linked the cards
-                Text ("This is your saved affirmation" )
+                Text("Card View")
+                    .font(.largeTitle)
                     .fontWeight(.bold)
+                    .foregroundStyle(.rippleYellow1)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.white)
-                    .padding()
+                    .frame(width: 250)
                 
-                Image(systemName: "giftcard.fill")
-                                .resizable()
-                                .frame(width: 250, height: 200)
-                                .foregroundColor(.rippleLilac1)
-                                .padding()
+                ExploreCard(templateText: $templateText, affirmationText: $affirmationText, liked: $liked)
             }
             
         }
@@ -32,5 +36,8 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView()
+    @Previewable @State var templateText: String = "I am"
+    @Previewable @State var affirmationText: String = "The best"
+    @Previewable @State var liked: Bool = false
+    DetailView(templateText: $templateText, affirmationText: $affirmationText, liked: $liked)
 }
