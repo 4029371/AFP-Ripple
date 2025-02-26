@@ -33,7 +33,7 @@ struct LoginView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 250)
-                    .foregroundStyle(LinearGradient(colors: [.rippleLilac1, .rippleYellow1], startPoint: .top, endPoint: .bottom))
+                    .foregroundStyle(LinearGradient(colors: [.rippleYellow1, .rippleLilac1], startPoint: .top, endPoint: .bottom))
                 
                 Rectangle()
                     .fill(Color.rippleTeal2)
@@ -44,18 +44,16 @@ struct LoginView: View {
                             
                             TextField ("Username", text: $userName)
                                 .foregroundColor(.white)
-                                .background(Color(.rippleTeal1))
+                                .background(Color(.rippleLilac1))
                                 .cornerRadius(5)
-                                .opacity(0.7)
                                 .padding(.horizontal, 20)
                                 .bold()
                             
                             SecureField ("Password", text:$password)
                                 .textContentType(.password)
-                                .background(Color(.rippleTeal1))
+                                .background(Color(.rippleLilac1))
                                 .cornerRadius(5)
                                 .padding(20)
-                                .opacity(0.7)
                                 .bold()
                             
                             Button(action: {
