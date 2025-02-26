@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import NaturalLanguage
 
 struct CreateCard: View {
     
     @State var templateOptions: Bool = false
     @Binding var templateText: String
     @State var affirmationText: String = ""
-    @State var cardArray: [card] = []
-    @State var sentimentText: String = "That's not very positive!"
+    @State private var sentimentText: String = ""
+    
+    @EnvironmentObject var savedCards: Deck
     
     var body: some View {
         ZStack {
@@ -21,22 +23,6 @@ struct CreateCard: View {
                 .frame(width:300, height: 500)
                 .foregroundStyle(LinearGradient(colors: [.rippleTeal1, .rippleYellow1], startPoint: .top, endPoint: .bottom))
             VStack{
-//                HStack{
-//                    Button {
-//                        templateOptions.toggle()
-//                    } label: {
-//                        Image(systemName: "list.bullet")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 20, height: 20)
-//                            .foregroundStyle(.white)
-//                    }
-//                    Spacer()
-//                }
-//                .padding(.leading, 40)
-//                .padding(.top, 5)
-//                .bold()
-                
                 Spacer()
                 Text(templateText)
                     .foregroundStyle(.white)
@@ -50,12 +36,17 @@ struct CreateCard: View {
                             .foregroundStyle(.white)
                             .opacity(0.5)
                     }
-                    TextField("...", text: $affirmationText)
-                        .multilineTextAlignment(.center)
-                        .frame(width: 200, height: 60)
-                        .foregroundStyle(.white)
-                        .font(.largeTitle)
-                        .fontWeight(.black)
+                    TextEditor(text: $affirmationText)
+                                    .scrollContentBackground(.hidden)
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: 200, height: 60)
+                                    .foregroundStyle(.white)
+                                    .font(.largeTitle)
+                                    .fontWeight(.black)
+                                    .background(Color.clear)
+                                    .onChange(of: affirmationText) { newValue in
+                                        analyzeSentiment()
+                                    }
                 }
                 .padding(.top, -10)
                 
@@ -67,8 +58,8 @@ struct CreateCard: View {
                 
                 Button {
                     //Add saving function here
-                    var savedCard = card(template: templateText, affirmation: affirmationText, saved: true)
-                    cardArray.append(savedCard)
+                    var savedCard = Card(template: templateText, affirmation: affirmationText, saved: true)
+                    savedCards.addCard(card: savedCard)
                     affirmationText = ""
                 } label: {
                     if !affirmationText.isEmpty{
@@ -117,67 +108,40 @@ struct CreateCard: View {
             }
             
         }
-        // REMOVE ME
-        ForEach(cardArray, id: \.id) { card in
-            Text(card.template + " " + card.affirmation)
+    }
+    
+    func analyzeSentiment() {
+        let sentimentScore = getSentimentScore(from: "\"" + templateText + " " + affirmationText + "\"")
+        sentimentText = sentimentString(for: sentimentScore)
+    }
+    
+    /// Function to get the sentiment score from text
+    func getSentimentScore(from text: String) -> Double {
+        let tagger = NLTagger(tagSchemes: [.sentimentScore])
+        tagger.string = text
+        
+        var sentimentScore: Double = 0.0
+        tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .sentence, scheme: .sentimentScore, options: []) { tag, _ in
+            if let tagValue = tag?.rawValue, let score = Double(tagValue) {
+                sentimentScore = score
+            }
+            return false
         }
+        return sentimentScore
+    }
+    
+    func sentimentString(for score: Double) -> String {
+        let sentimentEmojis = ["Let's try something more positive...",
+                               "Could be better?",
+                               "Not bad!",
+                               "Very nice!"] // From negative to positive
+        let index = min(max(Int((score + 1) * 2), 0), sentimentEmojis.count - 1) // Normalize score to index
+        return sentimentEmojis[index]
     }
 }
 
 
-//struct cardButtons: View {
-//    @Binding var affirmationText: String
-//    var body: some View {
-//        HStack{
-//            Spacer()
-//            Button {
-//                
-//            } label: {
-//                Image(systemName: "heart.fill")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 20, height: 20)
-//                    .foregroundStyle(.white)
-//            }
-//            Spacer()
-//            Button {
-//
-//            } label: {
-//                Image(systemName: "paperplane.fill")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 20, height: 20)
-//                    .foregroundStyle(.white)
-//            }
-//            Spacer()
-//            Button {
-//                
-//            } label: {
-//                Image(systemName: "pencil")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 20, height: 20)
-//                    .foregroundStyle(.white)
-//            }
-//            
-//            Spacer()
-//            Button {
-//                affirmationText = ""
-//            } label: {
-//                Image(systemName: "eraser.fill")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 20, height: 20)
-//                    .foregroundStyle(.white)
-//                    .bold()
-//            }
-//            Spacer()
-//        }
-//    }
-//}
-
-
 #Preview {
-    @Previewable @State var text = "I am preview"
+    @Previewable @State var text = "I am"
     CreateCard(templateText: $text)
 }

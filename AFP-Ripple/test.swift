@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct test: View {
+    
+    @EnvironmentObject var savedCards: Deck
+    
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 20) {
-                ForEach(0..<10) {
-                    Text("Item \($0)")
-                        .foregroundStyle(.white)
-                        .font(.largeTitle)
-                        .frame(width: 200, height: 200)
-                        .background(.red)
-                }
+        VStack {
+            ForEach(savedCards.cards) { card in
+                Text(card.template + " " + card.affirmation)
             }
         }
     }
@@ -26,5 +23,4 @@ struct test: View {
 
 
 #Preview {
-    test()
 }

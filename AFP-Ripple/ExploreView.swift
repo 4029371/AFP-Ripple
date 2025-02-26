@@ -10,76 +10,48 @@ import SwiftUI
 struct ExploreView: View {
     
     @State var selectedPage = 0
-    @State var cardArray: [card] = []
+    @State var exploreCards: Deck = Deck(cards: [
+        Card(template: "I am", affirmation: "cool", saved: false),
+        Card(template: "I am", affirmation: "resilient", saved: false),
+        Card(template: "I am", affirmation: "boom", saved: false),
+        Card(template: "I am", affirmation: "boop", saved: false),
+    ])
     
-    @State var exploreCards: [card] = [
-        card(template: "I am", affirmation: "cool", saved: false),
-        card(template: "I am", affirmation: "resilient", saved: false),
-        card(template: "I am", affirmation: "boom", saved: false),
-        card(template: "I am", affirmation: "bam", saved: false),
-    ]
+    @EnvironmentObject var savedCards: Deck
     
     var body: some View {
-        ZStack{
-            Rectangle()
-                .foregroundStyle(.rippleTeal2)
-                .ignoresSafeArea()
-            
-            VStack {
-                Text("Explore")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.rippleYellow1)
-                    .multilineTextAlignment(.center)
-                    .frame(width: 250)
+        NavigationStack {
+            ZStack{
+                Rectangle()
+                    .foregroundStyle(.rippleTeal2)
+                    .ignoresSafeArea()
                 
-                ScrollView(.horizontal) {
-                    HStack(spacing: 0) {
-                        ForEach(0..<exploreCards.count, id: \.self) { i in
-                            VStack () {
-                                Spacer()
-                                ExploreCard(templateText: $exploreCards[i].template, affirmationText: $exploreCards[i].affirmation, liked: $exploreCards[i].saved, savedCards: $cardArray)
-                                    .offset(y: -20)
-                                    .tag(i)
-                                    .tabItem {
-                                        Text("Page \(i + 1)")
-                                    }
-                                Spacer()
-                                // REMOVE ME
-                                ForEach(cardArray, id: \.id) { card in
-                                    Text(card.template + " " + card.affirmation)
+                VStack {
+                    Text("Explore")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.rippleYellow1)
+                        .multilineTextAlignment(.center)
+                        .frame(width: 250)
+                    
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 0) {
+                            ForEach(0..<exploreCards.cards.count, id: \.self) { i in
+                                VStack () {
+                                    Spacer()
+                                    ExploreCard(templateText: $exploreCards.cards[i].template, affirmationText: $exploreCards.cards[i].affirmation, liked: $exploreCards.cards[i].saved)
+                                        .offset(y: -20)
+                                        .tag(i)
+                                        .tabItem {
+                                            Text("Page \(i + 1)")
+                                        }
+                                    Spacer()
                                 }
                             }
                         }
                     }
                 }
             }
-            
-//            TabView(selection: $selectedPage) {
-//                ForEach(0..<exploreCards.count, id: \.self) { i in
-//                    VStack () {
-//                        Text("Explore")
-//                            .font(.largeTitle)
-//                            .fontWeight(.bold)
-//                            .foregroundStyle(.rippleYellow1)
-//                            .multilineTextAlignment(.center)
-//                            .frame(width: 250)
-//                        Spacer()
-//                        ExploreCard(templateText: $exploreCards[i].template, affirmationText: $exploreCards[i].affirmation, liked: $exploreCards[i].saved, savedCards: $cardArray)
-//                            .offset(y: -20)
-//                            .tag(i)
-//                            .tabItem {
-//                                Text("Page \(i + 1)")
-//                            }
-//                        Spacer()
-//                        // REMOVE ME
-//                        ForEach(cardArray, id: \.id) { card in
-//                            Text(card.template + " " + card.affirmation)
-//                        }
-//                    }
-//                }
-//            }
-//            .tabViewStyle(.page(indexDisplayMode: .always))
         }
     }
 }

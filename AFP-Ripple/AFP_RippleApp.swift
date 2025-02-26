@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct AFP_RippleApp: App {
+    @StateObject var savedCards: Deck = Deck(cards: [])
+
     var body: some Scene {
         WindowGroup {
             TabView {
@@ -19,30 +21,19 @@ struct AFP_RippleApp: App {
                     Text("My Travel")
                 }
                 Tab {
-                    // Add View Here
+                    ExploreView()
                 } label: {
                     Image(systemName: "person.3")
                     Text("Student List")
                 }
                 Tab {
-                    // Add View Here
+                    test()
                 } label: {
-                    Image(systemName: "lock.fill")
-                    Text("Own Struct")
-                }
-                Tab {
-                    // Add View Here
-                } label: {
-                    Image(systemName: "lock.fill")
-                    Text("Own Struct")
-                }
-                Tab {
-                    // Add View Here
-                } label: {
-                    Image(systemName: "lock.fill")
-                    Text("Own Struct")
+                    Image(systemName: "person.3")
+                    Text("Student List")
                 }
             }
+            .environmentObject(savedCards)
         }
 
     }
