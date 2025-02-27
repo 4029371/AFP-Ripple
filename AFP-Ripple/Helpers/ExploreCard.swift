@@ -108,7 +108,7 @@ struct ExploreCard: View {
                             Spacer()
                                 .sheet(isPresented: $showingShareSheet) {
                                     // Step 3: Present the Share Sheet
-                                    ShareSheet(activityItems: ["Share your affirmation!"])
+                                    ShareSheet(activityItems: [templateText + " " + affirmationText])
                                 }
                         }
                     }
