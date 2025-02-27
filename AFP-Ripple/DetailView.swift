@@ -9,9 +9,9 @@ import SwiftUI
 
 struct DetailView: View {
     
-    @Binding var templateText: String
-    @Binding var affirmationText: String
-    @Binding var liked: Bool
+    @State var templateText = "I am"
+    @State var affirmationText = "test"
+    @State var saved = false
     
     var body: some View {
         ZStack {
@@ -28,7 +28,7 @@ struct DetailView: View {
                     .multilineTextAlignment(.center)
                     .frame(width: 250)
                 
-                ExploreCard(templateText: $templateText, affirmationText: $affirmationText, liked: $liked)
+                ExploreCard(templateText: $templateText, affirmationText: $affirmationText, liked: $saved)
             }
             
         }
@@ -36,8 +36,5 @@ struct DetailView: View {
 }
 
 #Preview {
-    @Previewable @State var templateText: String = "I am"
-    @Previewable @State var affirmationText: String = "The best"
-    @Previewable @State var liked: Bool = false
-    DetailView(templateText: $templateText, affirmationText: $affirmationText, liked: $liked)
+    DetailView()
 }
