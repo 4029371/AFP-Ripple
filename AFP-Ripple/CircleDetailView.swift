@@ -95,10 +95,6 @@ struct CircleDetailView: View {
                 .padding()
 
             ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.gray, lineWidth: 0)
-                    .background(Color.white.cornerRadius(8))
-                    .frame(height: 250)
                 TextEditor(text: $notes)
                     .padding(2)
             }
