@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CreateView: View {
+    
     @State private var selectedPage: Int = 0
     @State var templateText: [String] = [
         "I am",

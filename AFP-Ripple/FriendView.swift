@@ -112,7 +112,7 @@ struct FriendView: View {
                         .clipShape(Circle())
                         .shadow(color: .rippleYellow1, radius: 10)
                 }
-                .padding(.top, selectedCircleIndex == nil ? -15 : -600)
+                .padding(.top, selectedCircleIndex == nil ? -15 : -2000)
 
                 Spacer()
             }

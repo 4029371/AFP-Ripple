@@ -11,10 +11,16 @@ struct ExploreView: View {
     
     @State var selectedPage = 0
     @State var exploreCards: Deck = Deck(cards: [
+        Card(template: "I am", affirmation: "strong", saved: false),
+        Card(template: "I believe", affirmation: "in myself", saved: false),
         Card(template: "I am", affirmation: "cool", saved: false),
-        Card(template: "I am", affirmation: "resilient", saved: false),
+        Card(template: "I can", affirmation: "achieve", saved: false),
+        Card(template: "I will", affirmation: "progress", saved: false),
+        Card(template: "I will", affirmation: "be happy", saved: false),
         Card(template: "I am", affirmation: "boom", saved: false),
-        Card(template: "I am", affirmation: "boop", saved: false),
+        Card(template: "I am", affirmation: "boom", saved: false),
+        Card(template: "I am", affirmation: "boom", saved: false),
+        Card(template: "I am", affirmation: "boom", saved: false),
     ])
     
     @EnvironmentObject var savedCards: Deck

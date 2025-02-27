@@ -69,7 +69,7 @@ struct CircleDetailView: View {
                                 .foregroundStyle(.white)
 
                             Slider(value: $circle.size, in: 50...200, step: 1)
-                                .accentColor(circle.color)
+                                .accentColor(.rippleYellow1)
                                 .padding([.top, .horizontal], 10)
                         }
                         .opacity(colorPickerOpacity)
@@ -85,7 +85,7 @@ struct CircleDetailView: View {
                 .font(.largeTitle)
                 .bold()
                 .padding(.horizontal)
-
+            
             TextField("Birthday", text: $age)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()

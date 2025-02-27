@@ -10,6 +10,8 @@ import NaturalLanguage
 
 struct CreateCard: View {
     
+    @FocusState private var responseIsFocused: Bool
+    
     @State var templateOptions: Bool = false
     @Binding var templateText: String
     @State var affirmationText: String = ""
@@ -22,10 +24,6 @@ struct CreateCard: View {
             RoundedRectangle(cornerRadius: 25)
                 .frame(width:300, height: 500)
                 .foregroundStyle(LinearGradient(colors: [.rippleTeal1, .rippleYellow1], startPoint: .top, endPoint: .bottom))
-//                .overlay(
-//                        RoundedRectangle(cornerRadius: 25)
-//                            .stroke(.rippleYellow1, lineWidth: 2)
-//                    )
             
             VStack{
                 Spacer()
@@ -42,16 +40,23 @@ struct CreateCard: View {
                             .opacity(0.5)
                     }
                     TextEditor(text: $affirmationText)
-                                    .scrollContentBackground(.hidden)
-                                    .multilineTextAlignment(.center)
-                                    .frame(width: 200, height: 60)
-                                    .foregroundStyle(.white)
-                                    .font(.largeTitle)
-                                    .fontWeight(.black)
-                                    .background(Color.clear)
-                                    .onChange(of: affirmationText) { newValue in
-                                        analyzeSentiment()
-                                    }
+                        .focused($responseIsFocused)
+                        .onReceive(affirmationText.publisher.last()) {
+                            if($0 as Character).asciiValue == 10 {
+                                responseIsFocused = false
+                                affirmationText.removeLast()
+                            }
+                        }
+                        .scrollContentBackground(.hidden)
+                        .multilineTextAlignment(.center)
+                        .frame(width: 200, height: 60)
+                        .foregroundStyle(.white)
+                        .font(.largeTitle)
+                        .fontWeight(.black)
+                        .background(Color.clear)
+                        .onChange(of: affirmationText) { newValue in
+                            analyzeSentiment()
+                        }
                 }
                 .padding(.top, -10)
                 
