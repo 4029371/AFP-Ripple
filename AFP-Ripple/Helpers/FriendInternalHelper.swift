@@ -41,10 +41,7 @@ struct FriendInternalHelper: View {
             // Name tag higher above the mouth
             Text(name)
                 .font(.caption)
-                .foregroundColor(.black)
-                .padding(4)
-                .background(Color.white.opacity(0.8))
-                .cornerRadius(5)
+                .foregroundColor(.white)
                 .position(x: position.x, y: position.y + size * 0.35) // Moved higher above the mouth
         }
     }

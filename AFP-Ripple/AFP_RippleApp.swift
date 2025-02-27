@@ -17,13 +17,6 @@ struct AFP_RippleApp: App {
         WindowGroup {
             TabView {
                 Tab {
-                    CreateView()
-                } label: {
-                    Image(systemName: "plus")
-                        .bold()
-                    Text("Create")
-                }
-                Tab {
                     ExploreView()
                 } label: {
                     Image(systemName: "heart.text.square.fill")
@@ -36,9 +29,23 @@ struct AFP_RippleApp: App {
                     Text("Saved")
                 }
                 Tab {
+                    CreateView()
+                } label: {
+                    Image(systemName: "plus")
+                        .bold()
+                    Text("Create")
+                }
+                
+                Tab {
+                    FriendView()
+                } label: {
+                    Image(systemName: "person.2.fill")
+                    Text("Friends")
+                }
+                Tab {
                     LoginView()
                 } label: {
-                    Image(systemName: "person.fill")
+                    Image(systemName: "gearshape.fill")
                     Text("Account")
                 }
             }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CircleDetailView: View {
-    @Binding var circle: (view: ContentView, name: String, position: CGPoint, age: String, hobby: String, notes: String, color: Color, size: CGFloat)
+    @Binding var circle: (view: FriendInternalHelper, name: String, position: CGPoint, age: String, hobby: String, notes: String, color: Color, size: CGFloat)
     var onDone: () -> Void
 
     @State private var age: String
@@ -13,7 +13,7 @@ struct CircleDetailView: View {
 
     private let fixedSize: CGFloat = 150
 
-    init(circle: Binding<(view: ContentView, name: String, position: CGPoint, age: String, hobby: String, notes: String, color: Color, size: CGFloat)>, onDone: @escaping () -> Void) {
+    init(circle: Binding<(view: FriendInternalHelper, name: String, position: CGPoint, age: String, hobby: String, notes: String, color: Color, size: CGFloat)>, onDone: @escaping () -> Void) {
         self._circle = circle
         self.onDone = onDone
         _age = State(initialValue: circle.age.wrappedValue)
@@ -81,6 +81,7 @@ struct CircleDetailView: View {
             .padding(.top, 70) // Adjusted to move everything above the name down slightly
 
             Text(circle.name)
+                .foregroundStyle(circle.color)
                 .font(.largeTitle)
                 .bold()
                 .padding()
@@ -95,7 +96,6 @@ struct CircleDetailView: View {
 
             TextEditor(text: $notes)
                 .frame(height: 300)
-                .border(Color.gray, width: 1)
                 .padding()
 
             Button("Done") {
@@ -112,8 +112,11 @@ struct CircleDetailView: View {
 
             Spacer()
         }
-        .background(
-            LinearGradient(gradient: Gradient(colors: [.rippleLilac1, .rippleTeal2, .rippleTeal1]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                .ignoresSafeArea())
+        .background(.rippleTeal1).ignoresSafeArea()
     }
 }
+
+#Preview {
+    FriendView()
+}
+
