@@ -27,7 +27,7 @@ struct ReflectionView: View {
                     List {
                         ForEach(savedCards.cards) { card in
                             NavigationLink {
-//                                DetailView(templateText: card.template, affirmationText: card.affirmation, liked: card.saved)
+                                DetailView()
                             } label: {
                                 HStack {
                                     Text (card.template + " " + card.affirmation)
@@ -44,6 +44,7 @@ struct ReflectionView: View {
                 }
                 .scrollContentBackground(.hidden)
             }
+        .accentColor(.rippleYellow1)
         }
     }
           
