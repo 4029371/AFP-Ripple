@@ -18,30 +18,25 @@ struct FriendView: View {
             Color(.rippleTeal1)
                 .ignoresSafeArea()
 
-            // Hide the friend-adding menu when the CircleDetailView is shown
             if let selectedIndex = selectedCircleIndex {
                 CircleDetailView(
                     circle: $circles[selectedIndex],
                     onDone: {
-                        // Update the circle's color in HomeScreen
                         let updatedColor = circles[selectedIndex].color
                         circles[selectedIndex].view = FriendInternalHelper(color: updatedColor, size: circles[selectedIndex].size, name: circles[selectedIndex].name)
-                        // Slide out the CircleDetailView to the right
                         withAnimation(.easeInOut(duration: 0.5)) {
                             self.selectedCircleIndex = nil
                         }
                     }
                 )
-                .transition(.move(edge: .trailing).combined(with: .opacity)) // Slide in from the right
-                .animation(.easeInOut(duration: 0.5)) // Animation duration for the slide-in
+                .transition(.move(edge: .trailing).combined(with: .opacity))
+                .animation(.easeInOut(duration: 0.5))
             } else {
-                // Show circles when no detail view is selected
                 ForEach(0..<circles.count, id: \.self) { index in
                     circles[index].view
                         .onTapGesture {
                             withAnimation {
                                 self.selectedCircleIndex = index
-                                // Hide the friend-adding menu when a circle is selected
                                 isMenuVisible = false
                             }
                         }
@@ -55,7 +50,7 @@ struct FriendView: View {
                     .foregroundStyle(.rippleYellow1)
                     .multilineTextAlignment(.center)
                     .frame(width: 250)
-                
+
                 if isMenuVisible {
                     VStack(spacing: 5) {
                         HStack {
@@ -75,7 +70,7 @@ struct FriendView: View {
                             TextField("Enter Friend's Name", text: $newName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .frame(width: 200)
-                                .padding()
+                                .padding(.vertical, 8)
                                 .multilineTextAlignment(.center)
                                 .frame(maxWidth: .infinity)
 
@@ -99,6 +94,7 @@ struct FriendView: View {
                             }
                             .padding()
                         }
+                        .padding(.top, -40) // Move closer to Friends title
                         .frame(maxWidth: .infinity)
                     }
                 }
@@ -116,7 +112,7 @@ struct FriendView: View {
                         .clipShape(Circle())
                         .shadow(color: .rippleYellow1, radius: 10)
                 }
-                .padding(.top, selectedCircleIndex == nil ? -15 : -600) // Moves it up when detail view is shown
+                .padding(.top, selectedCircleIndex == nil ? -15 : -600)
 
                 Spacer()
             }
@@ -141,4 +137,3 @@ struct FriendView: View {
 #Preview {
     FriendView()
 }
-

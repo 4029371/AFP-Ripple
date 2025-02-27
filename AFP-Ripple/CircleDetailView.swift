@@ -31,8 +31,7 @@ struct CircleDetailView: View {
                         .onTapGesture {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showColorPicker.toggle()
-                                // Move the circle slightly more to the right (adjusting the offset here)
-                                circleOffset = showColorPicker ? 15 : 0 // Slightly more to the right
+                                circleOffset = showColorPicker ? 15 : 0
                                 colorPickerOpacity = showColorPicker ? 1 : 0
                             }
                         }
@@ -49,28 +48,29 @@ struct CircleDetailView: View {
                     }
                     .offset(y: fixedSize * 0.45)
                 }
-                .offset(x: circleOffset * 0.5)  // Keeps the circle centered initially, adjusts when picker is shown
+                .offset(x: circleOffset * 0.5)
 
                 if showColorPicker {
                     VStack {
                         Text("Pick a Color")
                             .font(.headline)
                             .opacity(colorPickerOpacity)
+                            .foregroundStyle(.white)
 
                         ColorPicker("", selection: $circle.color)
                             .labelsHidden()
                             .frame(width: 80, height: 40)
                             .opacity(colorPickerOpacity)
 
-                        // Size Adjustment Controls (Slider)
                         VStack {
                             Text("Size: \(Int(circle.size))")
                                 .font(.headline)
                                 .padding(.top, 5)
+                                .foregroundStyle(.white)
 
                             Slider(value: $circle.size, in: 50...200, step: 1)
-                                .accentColor(.blue)
-                                .padding([.top, .horizontal], 10) // Reduced top padding to bring the slider closer to the number
+                                .accentColor(circle.color)
+                                .padding([.top, .horizontal], 10)
                         }
                         .opacity(colorPickerOpacity)
                     }
@@ -78,13 +78,13 @@ struct CircleDetailView: View {
                     .transition(.move(edge: .trailing).combined(with: .opacity))
                 }
             }
-            .padding(.top, 70) // Adjusted to move everything above the name down slightly
+            .padding(.top, 100)
 
             Text(circle.name)
                 .foregroundStyle(circle.color)
                 .font(.largeTitle)
                 .bold()
-                .padding()
+                .padding(.horizontal)
 
             TextField("Birthday", text: $age)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -94,9 +94,15 @@ struct CircleDetailView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
 
-            TextEditor(text: $notes)
-                .frame(height: 300)
-                .padding()
+            ZStack {
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.gray, lineWidth: 0)
+                    .background(Color.white.cornerRadius(8))
+                    .frame(height: 250)
+                TextEditor(text: $notes)
+                    .padding(2)
+            }
+            .padding()
 
             Button("Done") {
                 circle.age = age
@@ -104,11 +110,10 @@ struct CircleDetailView: View {
                 circle.notes = notes
                 onDone()
             }
-            .padding()
-            .background(Color.blue)
+            .buttonStyle(.borderedProminent)
+            .accentColor(.rippleYellow1)
             .foregroundColor(.white)
-            .cornerRadius(10)
-            .padding(.bottom, 60)
+            .padding(.bottom, 110)
 
             Spacer()
         }
@@ -119,4 +124,3 @@ struct CircleDetailView: View {
 #Preview {
     FriendView()
 }
-
